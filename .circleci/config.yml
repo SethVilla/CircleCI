@@ -19,7 +19,7 @@ jobs:
           - image: circleci/node:13.8.0
         steps:
           - run:
-            name: "echo an env var that is part of our project"
+            name: 'echo an env var that is part of our project'
             command: |
               echo $MY_ENV_VAR # this env var must be set within the project
 # Orchestrate or schedule a set of jobs
@@ -30,6 +30,6 @@ workflows:
     jobs:
       - welcome/run
       - print_hello
-      - print_world
+      - print_world:
           requires:
             - print_hello
