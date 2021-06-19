@@ -18,10 +18,7 @@ jobs:
         docker:
           - image: circleci/node:13.8.0
         steps:
-          - run:
-              name: 'echo an env var that is part of our project'
-              command: |
-                echo $MY_ENV_VAR # this env var must be set within the project
+          - run: echo "world"
 # Orchestrate or schedule a set of jobs
 workflows:
   # Name the workflow "welcome"
@@ -30,6 +27,6 @@ workflows:
     jobs:
       - welcome/run
       - print_hello
-      - print_world:
-          requires:
+      - print_world
+        requires:
             - print_hello
