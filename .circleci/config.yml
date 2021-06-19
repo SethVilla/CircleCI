@@ -4,22 +4,21 @@ version: 2.1
 orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
+# Orchestrate or schedule a set of jobs
 jobs:
   print_hello:
-    jobs:
-      build:
-        docker:
-          - image: circleci/node:13.8.0
-        steps:
-          - run: echo "hello"
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run: echo hello
   print_world:
-    jobs:
-      build:
-        docker:
-          - image: circleci/node:13.8.0
-        steps:
-          - run: echo "world"
-# Orchestrate or schedule a set of jobs
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - run:
+          name: 'echo an env var that is part of our project'
+          command: |
+            echo $MY_ENV_VAR # this env var must be set within the project
 workflows:
   # Name the workflow "welcome"
   welcome:
@@ -27,6 +26,6 @@ workflows:
     jobs:
       - welcome/run
       - print_hello
-      - print_world
-        requires:
+      - print_world:
+          requires:
             - print_hello
